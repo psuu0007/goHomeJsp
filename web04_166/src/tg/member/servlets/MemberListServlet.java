@@ -25,18 +25,19 @@ public class MemberListServlet extends GenericServlet{
 		
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "jsp";
-		String password = "jsp";
+		String password =" jsp";
 		
 		String sql = "";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, password);
-			stmt = conn.createStatement();
 			
-			sql = "select mno, mname, email, cre_date";
-			sql += " from members";
-			sql += " order by mno asc";
+			stmt = conn.createStatement();
+						
+			sql = "SELECT MNO, MNAME, EMAIL, CRE_DATE";
+			sql += " FROM MEMBERS";
+			sql += " ORDER BY MNO ASC";
 			
 			rs = stmt.executeQuery(sql);
 			
