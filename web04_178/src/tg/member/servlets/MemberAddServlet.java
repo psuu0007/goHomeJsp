@@ -1,6 +1,7 @@
 package tg.member.servlets;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -50,6 +51,20 @@ public class MemberAddServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPost(req, res);
+=======
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class MemberAddServlet extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doGet(req, resp);
+>>>>>>> branch 'master' of https://github.com/psuu0007/goHomeJsp.git
 	}
 	
 }
