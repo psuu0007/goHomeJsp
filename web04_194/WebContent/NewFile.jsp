@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- 	"<a href='./update?mNo=" + rs.getInt("mno") + "'>" + -->
+<!-- 	<a href='./update?mNo=sdf'>          -->
+
 	<h1>회원정보</h1>
 	<form action='./update' method='post'>
 		번호: <input type='text' name='mno'><br /> 
