@@ -76,7 +76,6 @@ public class MemberUpdateServlet extends HttpServlet {
 			htmlStr += "<body>";
 			htmlStr += "<h1>회원정보 조회</h1>";
 			htmlStr += "<form action='./update' method='post'>";
-
 			htmlStr += "번호: <input type='text' " + "name='mNo' value='" + mNo + "' readonly><br />";
 			htmlStr += "이름: <input type='text' name='name'" + "value='" + mName + "'><br /> ";
 			htmlStr += "이메일: <input type='text' name='email'" + "value='" + email + "'><br /> ";
@@ -123,7 +122,6 @@ public class MemberUpdateServlet extends HttpServlet {
 	}
 
 	@Override
-
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

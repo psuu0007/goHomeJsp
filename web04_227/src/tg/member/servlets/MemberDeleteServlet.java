@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(value = "/member/update")
-public class MemberUpdateServlet extends HttpServlet {
+@WebServlet(value = "/member/delete")
+public class MemberDeleteServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 
 		String driver = "oracle.jdbc.driver.OracleDriver";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -41,53 +41,16 @@ public class MemberUpdateServlet extends HttpServlet {
 
 			conn = DriverManager.getConnection(url, user, password);
 
-			sql = "SELECT MNO, EMAIL, MNAME, CRE_DATE";
-			sql += " FROM MEMBERS";
+			sql = "DELETE FROM MEMBERS";
 			sql += " WHERE MNO = ?";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, mNo);
 
-			rs = pstmt.executeQuery();
-
-			String mName = "";
-			String email = "";
-			Date creDate = null;
-
-			while (rs.next()) {
-				mName = rs.getString("MNAME");
-				email = rs.getString("email");
-				creDate = rs.getDate("cre_date");
-			}
-
-			res.setContentType("text/html");
-			res.setCharacterEncoding("UTF-8");
-			PrintWriter out = res.getWriter();
-
-			String htmlStr = "";
-
-			htmlStr += "<!DOCTYPE html>";
-			htmlStr += "<html>";
-			htmlStr += "<head>";
-			htmlStr += "<meta charset=\"UTF-8\">";
-			htmlStr += "<title>회원정보 조회</title>";
-			htmlStr += "</head>";
-			htmlStr += "<body>";
-			htmlStr += "<h1>회원정보 조회</h1>";
-			htmlStr += "<form action='./update' method='post'>";
-
-			htmlStr += "번호: <input type='text' " + "name='mNo' value='" + mNo + "' readonly><br />";
-			htmlStr += "이름: <input type='text' name='name'" + "value='" + mName + "'><br /> ";
-			htmlStr += "이메일: <input type='text' name='email'" + "value='" + email + "'><br /> ";
-			htmlStr += "가입일: " + creDate + "<br/>";
-			htmlStr += "<input type='submit' value='수정'>";
-			htmlStr += "<input type='button' value='뒤로가기' onclick='location.href=\"./list\"'>";
-			htmlStr += "</form>";
-			htmlStr += "</body>";
-			htmlStr += "</html>";
-
-			out.println(htmlStr);
+			pstmt.executeUpdate();
+			
+			res.sendRedirect("./list");
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -96,14 +59,6 @@ public class MemberUpdateServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} // if(rs != null) end
-
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -123,7 +78,6 @@ public class MemberUpdateServlet extends HttpServlet {
 	}
 
 	@Override
-
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
