@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>일단 주소 쉽게 보는 화면</title>
 </head>
 <body>
 	안녕하세요
