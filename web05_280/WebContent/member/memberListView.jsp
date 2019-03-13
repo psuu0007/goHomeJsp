@@ -22,7 +22,6 @@
 			(ArrayList<MemberDto>)request.getAttribute("memberList");
 	
 		for(MemberDto memberDto : memberList){
-	
 	%>
 	
 	<%=memberDto.getNo()%>,

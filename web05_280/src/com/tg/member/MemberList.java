@@ -45,6 +45,10 @@ public class MemberList extends HttpServlet{
 			rs = pstmt.executeQuery();
 			System.out.println("쿼리 수행 성공");
 			
+			res.setContentType("text/html");
+			res.setCharacterEncoding("UTF-8");
+			
+			// request에 회원 목록 데이터 보관
 			ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
 			
 			int mno = 0;
@@ -52,6 +56,8 @@ public class MemberList extends HttpServlet{
 			String email = "";
 			Date creDate = null;
 			
+			// 데이터베이스에서 회원 정보를 가져와 MemberDto에 담는다
+			// 그리고 MemberDto객체를 ArrayList에 추가한다
 			while(rs.next()) {
 				mno = rs.getInt("MNO");
 				mname = rs.getString("MNAME");
@@ -64,8 +70,10 @@ public class MemberList extends HttpServlet{
 				
 			} // while end
 			
+			// request에 회원 목록 데이터를 보관한다
 			req.setAttribute("memberList", memberList);
 			
+			// jsp로 출력을 위임한다
 			RequestDispatcher dispatcher = 
 					req.getRequestDispatcher("/member/memberListView.jsp");
 			
