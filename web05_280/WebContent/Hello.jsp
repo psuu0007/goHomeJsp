@@ -7,6 +7,6 @@
 <title>일단 주소 쉽게 보는 화면</title>
 </head>
 <body>
-	안녕하세요
+	안녕하세요 여러분
 </body>
 </html>
