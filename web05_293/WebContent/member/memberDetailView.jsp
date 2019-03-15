@@ -11,6 +11,14 @@
 	function backPageFnc(){
 		location.href = './list';
 	}
+	
+	function deleteUserFnc() {
+		var obj = document.getElementById('no');
+		
+		var memberNo = obj.value;
+		
+		location.href = './delete?no=' + memberNo;
+	}
 </script>
 </head>
 
@@ -24,11 +32,12 @@
 	
 	<h1><%=memberDto.getName()%> 회원정보 조회</h1>
 	<form action="./update" method="post">
-		번호: <input type="text" name="no" value="<%=memberDto.getNo()%>" readonly="readonly"><br>
+		번호: <input type="text" id='no' name="no" value="<%=memberDto.getNo()%>" readonly="readonly"><br>
 		이름: <input type="text" name='name' value="<%=memberDto.getName()%>"><br>
 		이메일: <input type="text" name="email" value="<%=memberDto.getEmail()%>"><br>
 		가입일: <%=memberDto.getCreateDate()%><br>
 		<input type="submit" value="수정">
+		<input type="button" value="삭제" onclick="deleteUserFnc();">
 		<input type="button" value="뒤로가기" onclick="backPageFnc();">
 	</form>
 
