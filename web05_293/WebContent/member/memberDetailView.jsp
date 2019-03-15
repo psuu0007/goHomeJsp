@@ -1,5 +1,4 @@
 <%@page import="com.tg.member.MemberDto"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,9 +16,9 @@
 
 <body>
 	<%
-		ArrayList<MemberDto> memberList =
-			(ArrayList<MemberDto>)request.getAttribute("memberList");
-		MemberDto memberDto = memberList.get(0);
+// 		ArrayList<MemberDto> memberList =
+// 			(ArrayList<MemberDto>)request.getAttribute("memberList");
+		MemberDto memberDto = (MemberDto)request.getAttribute("memberDto");
 	%>
 	<jsp:include page="/Header.jsp"/>
 	

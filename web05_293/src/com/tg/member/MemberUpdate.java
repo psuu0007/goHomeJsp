@@ -57,10 +57,10 @@ public class MemberUpdate extends HttpServlet {
 			String email = "";
 			Date creDate = null;
 
-			ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
+//			ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
 			
 			MemberDto memberDto = null;
-			while (rs.next()) {
+			if(rs.next()) {
 				mNo = rs.getInt("MNO");
 				mName = rs.getString("MNAME");
 				email = rs.getString("email");
@@ -72,11 +72,25 @@ public class MemberUpdate extends HttpServlet {
 				memberDto.setName(mName);
 				memberDto.setEmail(email);
 				memberDto.setCreateDate(creDate);
-				
-				memberList.add(memberDto);
 			}
+			
+//			while (rs.next()) {
+//				mNo = rs.getInt("MNO");
+//				mName = rs.getString("MNAME");
+//				email = rs.getString("email");
+//				creDate = rs.getDate("cre_date");
+//				
+//				memberDto = new MemberDto();
+//				
+//				memberDto.setNo(mNo);
+//				memberDto.setName(mName);
+//				memberDto.setEmail(email);
+//				memberDto.setCreateDate(creDate);
+//				
+////				memberList.add(memberDto);
+//			}
 
-			req.setAttribute("memberList", memberList);
+			req.setAttribute("memberDto", memberDto);
 			
 			res.setCharacterEncoding("UTF-8");
 			RequestDispatcher dispatcher = 
