@@ -58,14 +58,15 @@ public class MemberList extends HttpServlet{
 			
 			// 데이터베이스에서 회원 정보를 가져와 MemberDto에 담는다
 			// 그리고 MemberDto객체를 ArrayList에 추가한다
+//			MemberDto memberDto = null;
 			while(rs.next()) {
 				mno = rs.getInt("MNO");
 				mname = rs.getString("MNAME");
 				email = rs.getString("EMAIL");
 				creDate = rs.getDate("CRE_DATE");
 				
-				MemberDto memberDto = 
-						new MemberDto(mno, mname, email, creDate);
+//				memberDto = new MemberDto(mno, mname, email, creDate);
+				MemberDto memberDto = new MemberDto(mno, mname, email, creDate);
 				memberList.add(memberDto);
 				
 			} // while end
@@ -78,6 +79,8 @@ public class MemberList extends HttpServlet{
 					req.getRequestDispatcher("/member/memberListView.jsp");
 			
 			dispatcher.include(req, res);
+			
+//			System.out.println("여기가 수행일 될까? 여긴 MemberList.java 파일인데");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
