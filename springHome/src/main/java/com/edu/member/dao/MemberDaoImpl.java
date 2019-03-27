@@ -17,13 +17,9 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public List<MemberVo> memberSelectList() {
 		// TODO Auto-generated method stub
-		
-		List<MemberVo> memberList = null;
-		
-		memberList = sqlSession.selectList("mappers.edu_member." + "memberSelectList");
-		
-		return memberList;
 
+		return sqlSession.selectList("mappers.edu_member.memberSelectList");
 	}
+	
 	
 }
