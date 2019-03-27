@@ -125,11 +125,44 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/updateCtr.do",
 			method=RequestMethod.POST)
-	public String memberUpdateCtr(MemberVo memberVo, Model model) {
+	public String memberUpdateCtr(HttpSession session
+			, MemberVo memberVo, Model model) {
 		log.debug("Welcome MemberController memberUpdateCtr " 
 				+ memberVo);
 		
-		memberService.memberUpdateOne(memberVo);
+		int resultNum = memberService.memberUpdateOne(memberVo);
+		
+//		System.out.println("?????????   " + resultNum);
+		
+		// 데이터베이스에서 회원정보가 수정이 됬는지 여부
+		if(resultNum > 0) {
+			
+			MemberVo sessionMemberVo = 
+					(MemberVo)session.getAttribute("_memberVo_");
+			// 세션에 객체가 존재하는지 여부
+			if(sessionMemberVo != null) {
+				// 세션의 값과 새로운 값이 일치하는지 여부
+				// 홍길동				ㄴㅇㄹㄴㅇ
+				// s1@test.com		ㄴㅇㄹ33@
+				// 1111				2222
+				if(sessionMemberVo.getNo() == memberVo.getNo()) {
+					MemberVo newMemberVo = new MemberVo();
+					
+//					sessionMemberVo.setNo(memberVo.getNo());
+//					sessionMemberVo.setEmail(memberVo.getEmail());
+//					sessionMemberVo.setName(memberVo.getName());
+					
+					newMemberVo.setNo(memberVo.getNo());
+					newMemberVo.setEmail(memberVo.getEmail());
+					newMemberVo.setName(memberVo.getName());
+					
+					session.removeAttribute("_memberVo_");
+					
+					session.setAttribute("_memberVo_", 
+							newMemberVo);
+				}
+			}
+		}
 		
 		return "common/successPage";
 	}
