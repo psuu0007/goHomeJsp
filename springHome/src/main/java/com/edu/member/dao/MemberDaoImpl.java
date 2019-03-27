@@ -27,6 +27,7 @@ public class MemberDaoImpl implements MemberDao{
 	public MemberVo memberExist(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "memberExist", paramMap);
+
 	}
 
 	@Override
@@ -36,7 +37,5 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.insert(namespace + "memberInsertOne",
 				memberVo);
 	}
-	
-	
-	
+
 }
