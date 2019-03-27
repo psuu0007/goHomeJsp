@@ -34,19 +34,19 @@
 			<td>이메일</td><td>가입일</td>
 			<td></td>
 		</tr>
-	<c:forEach var="memberDto" items="${memberList}">
+	<c:forEach var="memberVo" items="${memberList}">
 		<tr>
-			<td>${memberDto.no}</td>
+			<td>${memberVo.no}</td>
 			<td>
-				<a href='./update?no=${memberDto.no}'>${memberDto.name}</a>
+				<a href='./listOne.do?no=${memberVo.no}'>${memberVo.name}</a>
 			</td>
-			<td>${memberDto.email}</td>
+			<td>${memberVo.email}</td>
 			<td>
-				<fmt:formatDate value="${memberDto.createDate}"
+				<fmt:formatDate value="${memberVo.createDate}"
 					pattern="yyyy년MM월dd일 hh시mm분"/>
 			</td>
 			<td>
-				<a href='./delete?no=${memberDto.no}'>[삭제]</a>
+				<a href='./delete?no=${memberVo.no}'>[삭제]</a>
 			</td>
 		</tr>
 	</c:forEach>

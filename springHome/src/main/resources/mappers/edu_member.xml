@@ -38,4 +38,21 @@
 				#{name}, SYSDATE, SYSDATE)
 	</insert>
 
+	<select id="memberSelectOne" parameterType="int"
+		resultMap="memberResultMap">
+		SELECT MNO, MNAME, EMAIL, CRE_DATE
+		FROM MEMBERS
+		WHERE MNO = #{no}
+	</select>
+
+	<update id="memberUpdateOne" parameterType="memberVo">
+		UPDATE 	MEMBERS
+		SET 	MNAME = #{name},
+				EMAIL = #{email},
+				PWD = #{password},
+				MOD_DATE = SYSDATE
+		WHERE 	MNO = #{no}
+	</update>
+
+
 </mapper>

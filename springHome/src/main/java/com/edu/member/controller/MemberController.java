@@ -39,6 +39,17 @@ public class MemberController {
 		return "member/memberListView";
 	}
 	
+	@RequestMapping(value="/member/listOne.do")
+	public String memberListOne(int no, Model model) {
+		log.debug("Welcome memberListOne enter! - {}", no);
+		
+		MemberVo memberVo = memberService.memberSelectOne(no);
+		
+		model.addAttribute("memberVo", memberVo);
+		
+		return "member/memberListOneView";
+	}
+	
 	@RequestMapping(value="/auth/login.do", method=RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
 		log.debug("Welcome MemberController login 페이지 이동! ");
@@ -101,4 +112,25 @@ public class MemberController {
 		return "redirect:/member/list.do";
 	}
 	
+	@RequestMapping(value="/member/update.do")
+	public String memberUpdate(int no, Model model) {
+		log.debug("Welcome memberUpdate enter! - {}", no);
+		
+		MemberVo memberVo = memberService.memberSelectOne(no);
+		
+		model.addAttribute("memberVo", memberVo);
+		
+		return "member/memberUpdateForm";
+	}
+	
+	@RequestMapping(value="/member/updateCtr.do",
+			method=RequestMethod.POST)
+	public String memberUpdateCtr(MemberVo memberVo, Model model) {
+		log.debug("Welcome MemberController memberUpdateCtr " 
+				+ memberVo);
+		
+		memberService.memberUpdateOne(memberVo);
+		
+		return "common/successPage";
+	}
 }

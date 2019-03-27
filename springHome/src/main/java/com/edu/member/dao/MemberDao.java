@@ -10,5 +10,7 @@ public interface MemberDao {
 	public List<MemberVo> memberSelectList();
 	public MemberVo memberExist(Map<String, Object> paramMap);
 	public int memberInsertOne(MemberVo memberVo);
+	public MemberVo memberSelectOne(int no);
+	public int memberUpdateOne(MemberVo memberVo);
 	
 }
