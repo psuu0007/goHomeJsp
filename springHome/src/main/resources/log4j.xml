@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.edu">
-		<level value="trace" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

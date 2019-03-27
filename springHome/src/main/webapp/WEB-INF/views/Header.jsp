@@ -7,15 +7,15 @@
 
 	SPMS(Simple Project Management System)
 	<span style="float:right;">
-		<c:if test="${sessionScope.member != null}">
-			${sessionScope.member.name}
-			<a href="<%=request.getContextPath()%>/auth/logout"	style="color:white;">
+		<c:if test="${sessionScope._memberVo_ != null}">
+			${sessionScope._memberVo_.name}
+			<a href="${pageContext.request.contextPath}/auth/logout.do"	style="color:white;">
 				로그아웃
 			</a>
 		</c:if>
-		<c:if test="${sessionScope.member == null}">
+		<c:if test="${sessionScope._memberVo_ == null}">
 			게스트1
-			<a href="<%=request.getContextPath()%>/auth/logout"	style="color:white;">
+			<a href="${pageContext.request.contextPath}/auth/logout.do"	style="color:white;">
 				나가기
 			</a>
 		</c:if>
