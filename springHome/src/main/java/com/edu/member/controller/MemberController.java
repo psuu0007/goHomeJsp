@@ -1,6 +1,8 @@
 package com.edu.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,29 @@ public class MemberController {
 		model.addAttribute("memberList", memberList);
 		
 		return "member/memberListView";
+	}
+	
+	@RequestMapping(value="/login.do", method=RequestMethod.GET)
+	public String login(Model model) {
+		log.debug("Welcome MemberController login 페이지 이동! ");
+		
+		return "auth/loginForm";
+	}
+	
+	
+	@RequestMapping(value="/loginCtr.do", method=RequestMethod.POST)
+	public String loginCtr(String email, String password, Model model) {
+		log.debug("Welcome MemberController loginCtr! " + email + ", " + password);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("email", email);
+		paramMap.put("pwd", password);
+		
+		MemberVo memberVo = memberService.memberExist(paramMap);
+		
+		model.addAttribute("memberVo", memberVo);
+		
+		return "home";
 	}
 	
 }
