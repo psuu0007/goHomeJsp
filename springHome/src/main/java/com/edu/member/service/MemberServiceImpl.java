@@ -28,4 +28,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberExist(paramMap);
 	}
 
+	@Override
+	public int memberInsertOne(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		
+		return memberDao.memberInsertOne(memberVo);
+	}
+
 }

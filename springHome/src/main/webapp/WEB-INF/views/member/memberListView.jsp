@@ -22,7 +22,7 @@
 
 	<h1>회원목록</h1>
 	<div>
-		<a href="./add">신규 회원</a>
+		<a href="add.do">신규 회원</a>
 	</div>
 	<br />
 

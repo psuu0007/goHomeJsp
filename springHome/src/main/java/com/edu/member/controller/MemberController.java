@@ -83,4 +83,22 @@ public class MemberController {
 		return "redirect:/auth/login.do";
 	}
 	
+	@RequestMapping(value="/member/add.do", method=RequestMethod.GET)
+	public String memberAdd(Model model) {
+		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
+		
+		return "member/memberForm";
+	}
+
+	@RequestMapping(value="/member/addCtr.do",
+			method=RequestMethod.POST)
+	public String memberAdd(MemberVo memberVo, Model model) {
+		log.debug("Welcome MemberController memberAdd 신규등록 처리! "
+				+ memberVo);
+		
+		memberService.memberInsertOne(memberVo);
+		
+		return "redirect:/member/list.do";
+	}
+	
 }

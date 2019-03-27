@@ -29,5 +29,13 @@
 		FROM MEMBERS
 		WHERE EMAIL = #{email} AND PWD = #{pwd}
 	</select>
+	
+	<insert id="memberInsertOne" 
+		parameterType="com.edu.member.vo.MemberVo">
+		INSERT INTO MEMBERS
+		(MNO, EMAIL, PWD, MNAME, CRE_DATE, MOD_DATE)
+		VALUES(MEMBERS_MNO_SEQ.NEXTVAL, #{email}, #{password},
+				#{name}, SYSDATE, SYSDATE)
+	</insert>
 
 </mapper>
