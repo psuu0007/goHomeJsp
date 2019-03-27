@@ -46,7 +46,7 @@
 					pattern="yyyy년MM월dd일 hh시mm분"/>
 			</td>
 			<td>
-				<a href='./delete?no=${memberVo.no}'>[삭제]</a>
+				<a href='./deleteCtr.do?mno=${memberVo.no}'>[삭제]</a>
 			</td>
 		</tr>
 	</c:forEach>

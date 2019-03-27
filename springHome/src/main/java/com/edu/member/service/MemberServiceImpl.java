@@ -48,4 +48,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberUpdateOne(memberVo);
 	}
 
+	@Override
+	public int memberDelete(int no) {
+		// TODO Auto-generated method stub
+		
+		return memberDao.memberDelete(no);
+	}
+
 }

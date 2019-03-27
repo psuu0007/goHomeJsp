@@ -7,6 +7,20 @@
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
 
+<script type="text/javascript">
+	
+	function pageMoveDeleteFnc(mno){
+		var url = 'deleteCtr.do?mno=' + mno;
+		location.href = url;
+	}
+	
+	function pageMoveBeforeFnc(no){
+		var url = 'listOne.do?no=' + no;
+		location.href = url;
+	}
+			
+			
+</script>
 
 </head>
 <body>
@@ -25,8 +39,10 @@
 		가입일: <fmt:formatDate value="${memberVo.createDate}" 
 				pattern="yyyy-MM-dd"/><br>
 		<input type="submit" value="저장하기">
-		<input type="button" value='삭제하기'>
-		<input type="reset" value="뒤로가기">
+		<input type="button" value='삭제하기' 
+			onclick="pageMoveDeleteFnc(${memberVo.no});">
+		<input type="button" value="뒤로가기" 
+			onclick="pageMoveBeforeFnc(${memberVo.no});">
 	</form>
 
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>

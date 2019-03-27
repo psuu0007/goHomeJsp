@@ -52,4 +52,11 @@ public class MemberDaoImpl implements MemberDao{
 				, memberVo);
 	}
 
+	@Override
+	public int memberDelete(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace + "memberDelete"
+				, no);
+	}
+
 }

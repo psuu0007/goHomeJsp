@@ -25,7 +25,7 @@
 
 	<select id="memberExist" parameterType="map"
 		resultMap="memberResultMap">
-		SELECT MNAME, EMAIL
+		SELECT MNO, MNAME, EMAIL
 		FROM MEMBERS
 		WHERE EMAIL = #{email} AND PWD = #{pwd}
 	</select>
@@ -54,5 +54,9 @@
 		WHERE 	MNO = #{no}
 	</update>
 
+	<delete id="memberDelete" parameterType="int">
+		DELETE FROM MEMBERS
+		WHERE MNO = #{no}
+	</delete>
 
 </mapper>
