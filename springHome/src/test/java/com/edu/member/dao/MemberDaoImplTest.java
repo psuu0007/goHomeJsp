@@ -14,7 +14,7 @@ import com.edu.member.vo.MemberVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
+		"file:src/main/webapp/WEB-INF/spring/**/*.xml")
 public class MemberDaoImplTest {
 	
 	@Autowired
@@ -28,7 +28,7 @@ public class MemberDaoImplTest {
 		
 		Assert.assertNotNull(memberList);
 		Assert.assertEquals("홍길동", memberList.get(0).getName());
-		Assert.assertTrue(0 < memberList.size());
+		Assert.assertTrue(memberList.size() > 0);
 		
 	}
 	
