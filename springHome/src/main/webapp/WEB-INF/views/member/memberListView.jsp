@@ -52,7 +52,16 @@
 	</c:forEach>
 	</table>
 
-	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+	<jsp:include page="/WEB-INF/views/common/paging.jsp">
+		<jsp:param value="${pagingMap}" name="pagingMap"/>
+	</jsp:include>
 
+	<form action="./list.do" id="pagingForm" method="post">
+		<input type="hidden" id="curPage" name="curPage" 
+			value="${pagingMap.memberPaging.curPage}">
+	</form>
+
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+	
 </body>
 </html>

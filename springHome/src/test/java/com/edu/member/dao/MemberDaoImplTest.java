@@ -24,11 +24,11 @@ public class MemberDaoImplTest {
 	@Ignore
 	public void testMemberSelectList() {
 		// TODO Auto-generated method stub
-		List<MemberVo> memberList = memberDaoImpl.memberSelectList();	
-		
-		Assert.assertNotNull(memberList);
-		Assert.assertEquals("LMS", memberList.get(0).getName());
-		Assert.assertTrue(0 < memberList.size());
+//		List<MemberVo> memberList = memberDaoImpl.memberSelectList();	
+//		
+//		Assert.assertNotNull(memberList);
+//		Assert.assertEquals("LMS", memberList.get(0).getName());
+//		Assert.assertTrue(0 < memberList.size());
 		
 	}
 	

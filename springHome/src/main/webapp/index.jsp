@@ -11,6 +11,7 @@
 		
 		formObj.submit();
 	}
+	
 </script>
 </head>
 <body>
@@ -20,5 +21,6 @@
 		<input type="button"  
 			value="로그인 화면으로 이동" onclick="loginMoveFnc();">
 	</form>
+	
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.edu.member.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +19,14 @@ public class MemberDaoImpl implements MemberDao{
 	String namespace = "com.edu.member.";
 	
 	@Override
-	public List<MemberVo> memberSelectList() {
-
-		return sqlSession.selectList(namespace + "memberSelectList");
+	public List<MemberVo> memberSelectList(int start, int end) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		return sqlSession.selectList(namespace + "memberSelectList"
+				, map);
 	}
 
 	@Override
@@ -57,6 +63,13 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace + "memberDelete"
 				, no);
+	}
+
+	@Override
+	public int memberSelectTotalCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(
+				namespace + "memberSelectTotalCount");
 	}
 
 }

@@ -21,16 +21,16 @@ public class MemberServiceImplTest {
 	@Test
 	public void testMemberSelectList() {
 		
-		List<MemberVo> list = memberServiceImpl.memberSelectList();
+//		List<MemberVo> list = memberServiceImpl.memberSelectList();
 		
 //		Assert.assertEquals("s1@test.com", list.get(0).getEmail());
 		
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).getEmail());
+//		for (int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).getEmail());
 			
 //			Assert.assertEquals("s1@test.com", list.get(i).getEmail());
 			
-		}
+//		}
 		
 	}
 	

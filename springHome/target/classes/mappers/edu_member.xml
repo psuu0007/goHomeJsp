@@ -15,12 +15,25 @@
 			javaType="java.util.Date" />
 	</resultMap>
 
+<!-- 	<select id="memberSelectList" parameterType="map" -->
+<!-- 		resultMap="memberResultMap"> -->
+<!-- 		SELECT MNO, MNAME, EMAIL, CRE_DATE -->
+<!-- 		FROM MEMBERS -->
+<!-- 		ORDER BY MNO DESC -->
+<!-- 	</select> -->
+
 	<select id="memberSelectList" parameterType="map"
 		resultMap="memberResultMap">
 		SELECT MNO, MNAME, EMAIL, CRE_DATE
-		FROM MEMBERS
-		ORDER BY MNO
-		DESC
+			FROM (
+			SELECT ROWNUM RNUM, M.MNO, M.MNAME
+				, M.EMAIL, M.CRE_DATE
+				FROM (
+					SELECT MNO, MNAME, EMAIL, CRE_DATE
+					FROM MEMBERS
+					ORDER BY MNO DESC) M
+			) MEMBER
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<select id="memberExist" parameterType="map"
@@ -47,10 +60,12 @@
 
 	<update id="memberUpdateOne" parameterType="memberVo">
 		UPDATE 	MEMBERS
-		SET 	MNAME = #{name},
-				EMAIL = #{email},
-				PWD = #{password},
-				MOD_DATE = SYSDATE
+		<set>
+			<if test="name != ''">MNAME = #{name},</if>
+			<if test="email != ''">EMAIL = #{email},</if>
+			<if test="password != ''">PWD = #{password},</if>
+			MOD_DATE = SYSDATE
+		</set>
 		WHERE 	MNO = #{no}
 	</update>
 
@@ -58,5 +73,14 @@
 		DELETE FROM MEMBERS
 		WHERE MNO = #{no}
 	</delete>
+	
+	<select id="memberSelectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBERS
+	</select>
+	
+	
+	
+	
 
 </mapper>

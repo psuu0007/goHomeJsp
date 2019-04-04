@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
+import com.edu.util.Paging;
 
 
 @Controller
@@ -28,14 +30,30 @@ public class MemberController {
 	private MemberService memberService;
 	
 	// 회원 목록 조회 화면으로
-	@RequestMapping(value="/member/list.do", method=RequestMethod.GET)
-	public String memberList(Model model) {
+	@RequestMapping(value="/member/list.do"
+			, method= {RequestMethod.GET, RequestMethod.POST})
+	public String memberList(
+			@RequestParam(defaultValue ="1") int curPage,
+			Model model) {
 		
-		log.debug("Welcome MemberController enter! ");
+		log.debug("Welcome MemberController memberList! : {}"
+				, curPage);
 		
-		List<MemberVo> memberList = memberService.memberSelectList();
+		int totalCount = memberService.memberSelectTotalCount();
+		
+		Paging memberPaging = new Paging(totalCount, curPage);
+		int start = memberPaging.getPageBegin();
+		int end = memberPaging.getPageEnd();
+		
+		List<MemberVo> memberList = 
+				memberService.memberSelectList(start, end);
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("totalCount", totalCount);
+		pagingMap.put("memberPaging", memberPaging);
 		
 		model.addAttribute("memberList", memberList);
+		model.addAttribute("pagingMap", pagingMap);
 		
 		return "member/memberListView";
 	}
