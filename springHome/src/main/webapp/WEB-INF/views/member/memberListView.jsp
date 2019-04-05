@@ -60,7 +60,16 @@
 		<input type="hidden" id="curPage" name="curPage" 
 			value="${pagingMap.memberPaging.curPage}">
 	</form>
-
+	
+	<form action="./list.do" method="get">
+		<select name="searchOption">
+			<option value="title">제목</option>  <!-- 이메일 -->
+			<option value="content">내용</option>  <!-- 이름 -->
+		</select>
+		<input type="text" name="keyword" value="">
+		<input type="submit" value="검색">
+	</form>
+	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	
 </body>

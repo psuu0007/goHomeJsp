@@ -1,24 +1,35 @@
 package com.edu.member.service;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.edu.member.controller.MemberController;
 import com.edu.member.dao.MemberDao;
 import com.edu.member.vo.MemberVo;
 
 @Service
 public class MemberServiceImpl implements MemberService{
 
+	private static final Logger log = 
+			LoggerFactory.getLogger(MemberServiceImpl.class);
+	
 	@Autowired
 	public MemberDao memberDao;
 	
 	@Override
-	public List<MemberVo> memberSelectList(int start, int end) {
+	public List<MemberVo> memberSelectList(
+			String searchOption, String keyword, int start, int end) {
 		
-		return memberDao.memberSelectList(start, end);
+		return memberDao.memberSelectList(searchOption, keyword, start, end);
 	}
 
 	@Override
@@ -29,10 +40,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int memberInsertOne(MemberVo memberVo) {
+	public void memberInsertOne(MemberVo memberVo, 
+			MultipartHttpServletRequest multipartHttpServletRequest) {
 		// TODO Auto-generated method stub
+		memberDao.memberInsertOne(memberVo);
 		
-		return memberDao.memberInsertOne(memberVo);
+		
+		
 	}
 
 	@Override
@@ -56,9 +70,13 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int memberSelectTotalCount() {
+	public int memberSelectTotalCount(String searchOption, String keyword) {
 		// TODO Auto-generated method stub
-		return memberDao.memberSelectTotalCount();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		
+		return memberDao.memberSelectTotalCount(map);
 	}
 
 }

@@ -19,9 +19,12 @@ public class MemberDaoImpl implements MemberDao{
 	String namespace = "com.edu.member.";
 	
 	@Override
-	public List<MemberVo> memberSelectList(int start, int end) {
+	public List<MemberVo> memberSelectList(
+			String searchOption, String keyword, int start, int end) {
 		
 		Map<String, Object> map = new HashMap<>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -66,10 +69,10 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public int memberSelectTotalCount() {
+	public int memberSelectTotalCount(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(
-				namespace + "memberSelectTotalCount");
+				namespace + "memberSelectTotalCount", map);
 	}
 
 }

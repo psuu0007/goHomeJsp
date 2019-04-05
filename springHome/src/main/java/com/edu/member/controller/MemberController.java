@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
@@ -34,19 +35,25 @@ public class MemberController {
 			, method= {RequestMethod.GET, RequestMethod.POST})
 	public String memberList(
 			@RequestParam(defaultValue ="1") int curPage,
+			@RequestParam(defaultValue ="title") String searchOption,
+			@RequestParam(defaultValue ="") String keyword,
 			Model model) {
 		
 		log.debug("Welcome MemberController memberList! : {}"
 				, curPage);
+		log.debug(": {}", searchOption);
+		log.debug(": {}", keyword);
 		
-		int totalCount = memberService.memberSelectTotalCount();
+		int totalCount = 
+				memberService.memberSelectTotalCount(searchOption, keyword);
 		
 		Paging memberPaging = new Paging(totalCount, curPage);
 		int start = memberPaging.getPageBegin();
 		int end = memberPaging.getPageEnd();
 		
 		List<MemberVo> memberList = 
-				memberService.memberSelectList(start, end);
+				memberService.memberSelectList(
+						searchOption, keyword, start, end);
 		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("totalCount", totalCount);
@@ -122,11 +129,14 @@ public class MemberController {
 
 	@RequestMapping(value="/member/addCtr.do",
 			method=RequestMethod.POST)
-	public String memberAdd(MemberVo memberVo, Model model) {
+	public String memberAdd(MemberVo memberVo
+			, MultipartHttpServletRequest multipartHttpServletRequest
+			, Model model) {
 		log.debug("Welcome MemberController memberAdd 신규등록 처리! "
 				+ memberVo);
 		
-		memberService.memberInsertOne(memberVo);
+		memberService.memberInsertOne(memberVo
+				, multipartHttpServletRequest);
 		
 		return "redirect:/member/list.do";
 	}
