@@ -2,6 +2,8 @@ package com.edu.util;
 
 import java.io.Serializable;
 
+import org.springframework.stereotype.Component;
+
 public class Paging implements Serializable{
 
 	// 페이지당 게시물수
