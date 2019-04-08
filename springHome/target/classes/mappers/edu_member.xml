@@ -31,8 +31,16 @@
 				FROM (
 					SELECT MNO, MNAME, EMAIL, CRE_DATE
 					FROM MEMBERS
+					<choose>
+						<when test="searchOption == 'title'">
+							WHERE EMAIL LIKE '%'||#{keyword}||'%'
+						</when>
+                    	<otherwise>
+                    		WHERE MNAME LIKE '%'||#{keyword}||'%'
+                    	</otherwise>
+                    </choose>
 					ORDER BY MNO DESC) M
-			) MEMBER
+		) MEMBER
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 
@@ -79,9 +87,18 @@
 		WHERE MNO = #{no}
 	</delete>
 	
-	<select id="memberSelectTotalCount" resultType="int">
+	<select id="memberSelectTotalCount" parameterType="map"
+		resultType="int">
 		SELECT COUNT(*)
 		FROM MEMBERS
+		<choose>
+			<when test="searchOption == 'title'">
+				WHERE EMAIL LIKE '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				WHERE MNAME LIKE '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
 	</select>
 	
 	<insert id="insertFile" parameterType="map">

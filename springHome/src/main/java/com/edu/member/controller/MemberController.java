@@ -29,26 +29,39 @@ public class MemberController {
 	private MemberService memberService;
 
 	// 회원 목록 조회 화면으로
-	@RequestMapping(value = "/member/list.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String memberList(@RequestParam(defaultValue = "1") int curPage, Model model) {
-
-		log.debug("Welcome MemberController memberList! : {}", curPage);
-
-		int totalCount = memberService.memberSelectTotalCount();
-
+	@RequestMapping(value="/member/list.do"
+			, method= {RequestMethod.GET, RequestMethod.POST})
+	public String memberList(
+			@RequestParam(defaultValue ="1") int curPage,
+			@RequestParam(defaultValue ="title") String searchOption,
+			@RequestParam(defaultValue ="") String keyword,
+			Model model) {
+		
+		log.debug("Welcome MemberController memberList! : {}"
+				, curPage);
+		log.debug(": {}", searchOption);
+		log.debug(": {}", keyword);
+		
+		int totalCount = 
+				memberService.memberSelectTotalCount(searchOption, keyword);
+		
 		Paging memberPaging = new Paging(totalCount, curPage);
 		int start = memberPaging.getPageBegin();
 		int end = memberPaging.getPageEnd();
 
-		List<MemberVo> memberList = memberService.memberSelectList(start, end);
-
+		List<MemberVo> memberList = 
+				memberService.memberSelectList(
+						searchOption, keyword, start, end);
+		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("totalCount", totalCount);
 		pagingMap.put("memberPaging", memberPaging);
 
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("pagingMap", pagingMap);
-
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchOption", searchOption);
+		
 		return "member/memberListView";
 	}
 
@@ -118,11 +131,11 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/addCtr.do", method = RequestMethod.POST)
-	public String memberAdd(MemberVo memberVo, MultipartHttpServletRequest mulRequest, Model model) {
+	public String memberAdd(MemberVo memberVo, MultipartHttpServletRequest multipartHttpServletRequest, Model model) {
 		log.trace("Welcome MemberController memberAdd 신규등록 처리! " + memberVo);
 
 		try {
-			memberService.memberInsertOne(memberVo, mulRequest);
+			memberService.memberInsertOne(memberVo, multipartHttpServletRequest);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("아 오류 처리;");
@@ -132,6 +145,7 @@ public class MemberController {
 		return "redirect:/member/list.do";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/member/update.do")
 	public String memberUpdate(int no, Model model) {
 		log.debug("Welcome memberUpdate enter! - {}", no);

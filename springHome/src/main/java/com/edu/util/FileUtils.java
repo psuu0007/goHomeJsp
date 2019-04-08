@@ -62,17 +62,23 @@ public class FileUtils {
 
 	
 //	int parentSeq는 파일이 담겨진 테이블의 기본키값이다
-	public void parseUpdateFileInfo(Map<String, Object> tempFileMap) throws Exception {
+	public boolean parseUpdateFileInfo(Map<String, Object> tempFileMap) {
 
 		String storedFileName = (String)tempFileMap.get("STORED_FILE_NAME");
 		
 		File file = new File(filePath + "/" +storedFileName);
 		
 		if(file.exists()) {
-			file.delete();
+			try {
+				file.delete();
+			} catch (Exception e) {
+				return false;
+			}
+			
 		}else {
 			System.out.println("파일이 존재하지 않습니다.");
 		}
 
+		return true;
 	}
 }

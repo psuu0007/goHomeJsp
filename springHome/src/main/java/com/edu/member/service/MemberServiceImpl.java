@@ -21,8 +21,9 @@ import com.edu.util.FileUtils;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
-
+	private final Logger log = 
+			LoggerFactory.getLogger(MemberServiceImpl.class);
+	
 	@Autowired
 	public MemberDao memberDao;
 
@@ -30,9 +31,10 @@ public class MemberServiceImpl implements MemberService {
 	private FileUtils fileUtils;
 
 	@Override
-	public List<MemberVo> memberSelectList(int start, int end) {
+	public List<MemberVo> memberSelectList(
+			String searchOption, String keyword, int start, int end) {
 
-		return memberDao.memberSelectList(start, end);
+		return memberDao.memberSelectList(searchOption, keyword, start, end);
 	}
 
 	@Override
@@ -47,7 +49,6 @@ public class MemberServiceImpl implements MemberService {
 	public void memberInsertOne(MemberVo memberVo, MultipartHttpServletRequest multipartHttpServletRequest)
 			throws Exception {
 		// TODO Auto-generated method stub
-		
 		memberDao.memberInsertOne(memberVo);
 
 		int parentSeq = memberVo.getNo();
@@ -58,7 +59,6 @@ public class MemberServiceImpl implements MemberService {
 		for (int i = 0; i < list.size(); i++) {
 			memberDao.insertFile(list.get(i));
 		}
-
 	}
 
 	@Override
@@ -94,8 +94,8 @@ public class MemberServiceImpl implements MemberService {
 			// 오로지 하나만 관리
 			if (list.isEmpty() == false) {
 				if(tempFileMap != null) {
-					memberDao.fileDelete(parentSeq);
 					fileUtils.parseUpdateFileInfo(tempFileMap);
+					memberDao.fileDelete(parentSeq);
 				}
 				
 				for (Map<String, Object> map : list) {
@@ -112,10 +112,7 @@ public class MemberServiceImpl implements MemberService {
 		}catch (Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
-		 
-		
-		
-		
+			
 		return resultNum;
 	}
 
@@ -140,9 +137,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int memberSelectTotalCount() {
+	public int memberSelectTotalCount(String searchOption, String keyword) {
 		// TODO Auto-generated method stub
-		return memberDao.memberSelectTotalCount();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		
+		return memberDao.memberSelectTotalCount(map);
 	}
 
 }

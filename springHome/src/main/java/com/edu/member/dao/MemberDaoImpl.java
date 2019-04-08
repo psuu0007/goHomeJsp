@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,9 +19,12 @@ public class MemberDaoImpl implements MemberDao{
 	String namespace = "com.edu.member.";
 	
 	@Override
-	public List<MemberVo> memberSelectList(int start, int end) {
+	public List<MemberVo> memberSelectList(
+			String searchOption, String keyword, int start, int end) {
 		
 		Map<String, Object> map = new HashMap<>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -68,10 +69,10 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public int memberSelectTotalCount() {
+	public int memberSelectTotalCount(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(
-				namespace + "memberSelectTotalCount");
+				namespace + "memberSelectTotalCount", map);
 	}
 
 	@Override

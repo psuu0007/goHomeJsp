@@ -55,12 +55,9 @@ nav > ul > li > a:hover{
 		$("#pagingForm").submit();
 	}
 	
-	window.onload = function(){
-		var curPageDoc = $('#curPage');
-		var id = '#pageButton' + curPageDoc.val();
+// 	window.onload = function(){
 		
-		$(id).addClass('active');
-	}
+// 	}
 </script>
 
 	<nav>
