@@ -16,6 +16,33 @@
 	}
 </style>
 <title>회원 목록</title>
+
+<script type="text/javascript">
+	window.onload = function(){
+		var searchOptionInputObj = document.getElementById('searchOptionVal');
+		alert(searchOptionInputObj);
+		var searchOptionVal = searchOptionInputObj.value; 
+		
+		var selectObj = document.getElementById('searchOption');
+		
+		var optionsArr = selectObj.options;
+		
+		for (var i = 0; i < optionsArr.length; i++) {
+			alert(optionsArr[0].value);
+			if(optionsArr[i].value == searchOptionVal){
+				optionsArr[i].selected = 'selected';
+				break;
+			}
+		}
+		
+		var curPageDoc = $('#curPage');
+		var id = '#pageButton' + curPageDoc.val();
+		
+		$(id).addClass('active');
+		
+	}
+</script>
+
 </head>
 <body>
 
@@ -62,15 +89,15 @@
 	</form>
 	
 	<form action="./list.do" method="get">
-		<select name="searchOption">
+		<select name="searchOption" id="searchOption">
 			<option value="title">제목</option>  <!-- 이메일 -->
 			<option value="content">내용</option>  <!-- 이름 -->
 		</select>
-		<input type="text" name="keyword" value="">
+		<input type="text" name="keyword" value="${keyword}">
 		<input type="submit" value="검색">
 	</form>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
-	
+	<input type="hidden" id="searchOptionVal" value="${searchOption}">
 </body>
 </html>

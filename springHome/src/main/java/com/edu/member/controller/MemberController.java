@@ -61,6 +61,8 @@ public class MemberController {
 		
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("pagingMap", pagingMap);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchOption", searchOption);
 		
 		return "member/memberListView";
 	}
